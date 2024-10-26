@@ -27230,27 +27230,36 @@ var _searchBarDefault = parcelHelpers.interopDefault(_searchBar);
 var _countriesList = require("./components/CountriesList");
 var _countriesListDefault = parcelHelpers.interopDefault(_countriesList);
 var _styleCss = require("./style.css");
+var _s = $RefreshSig$();
+// using lift state 
 const App = ()=>{
+    _s();
+    const [Query, setQuery] = (0, _react.useState)("");
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _headerDefault.default), {}, void 0, false, {
                 fileName: "App.jsx",
-                lineNumber: 13,
+                lineNumber: 16,
                 columnNumber: 5
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _searchBarDefault.default), {}, void 0, false, {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _searchBarDefault.default), {
+                setQuery: setQuery
+            }, void 0, false, {
                 fileName: "App.jsx",
-                lineNumber: 14,
+                lineNumber: 17,
                 columnNumber: 5
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _countriesListDefault.default), {}, void 0, false, {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _countriesListDefault.default), {
+                Query: Query
+            }, void 0, false, {
                 fileName: "App.jsx",
-                lineNumber: 15,
+                lineNumber: 18,
                 columnNumber: 5
             }, undefined)
         ]
     }, void 0, true);
 };
+_s(App, "kAjtJTPaBdd3wlJvV6UWej8nZQs=");
 _c = App;
 exports.default = App;
 var _c;
@@ -27514,7 +27523,7 @@ parcelHelpers.export(exports, "default", ()=>SearchBar);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-function SearchBar() {
+function SearchBar({ setQuery }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "search-filter-container",
@@ -27530,8 +27539,9 @@ function SearchBar() {
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                            onChange: (e)=>setQuery(e.target.value.toLowerCase()),
                             type: "text",
-                            placeholder: "Search for a country..."
+                            placeholder: "Search for a country... "
                         }, void 0, false, {
                             fileName: "components/SearchBar.jsx",
                             lineNumber: 9,
@@ -27638,33 +27648,31 @@ var _data = require("../data");
 var _dataDefault = parcelHelpers.interopDefault(_data);
 var _card = require("./card");
 var _cardDefault = parcelHelpers.interopDefault(_card);
-function CountriesList() {
-    const array = (0, _dataDefault.default).map((data, i)=>{
-        console.log(data.name.common);
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default), {
-            name: data.name.common,
-            flag: data.flags.svg,
-            population: data.population.toLocaleString("en-IN"),
-            region: data.region,
-            capital: data.capital?.[0]
-        }, i, false, {
-            fileName: "components/CountriesList.jsx",
-            lineNumber: 9,
-            columnNumber: 7
-        }, this);
-    });
+function CountriesList({ Query }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "countries-container",
-            children: array
+            children: (0, _dataDefault.default).filter((data)=>data.name.common.toLowerCase().includes(Query)).map((country, i)=>{
+                return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default), {
+                    name: country.name.common,
+                    flag: country.flags.svg,
+                    population: country.population.toLocaleString("en-IN"),
+                    region: country.region,
+                    capital: country.capital?.[0]
+                }, i, false, {
+                    fileName: "components/CountriesList.jsx",
+                    lineNumber: 13,
+                    columnNumber: 15
+                }, this);
+            })
         }, void 0, false, {
             fileName: "components/CountriesList.jsx",
-            lineNumber: 21,
+            lineNumber: 8,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "components/CountriesList.jsx",
-        lineNumber: 20,
+        lineNumber: 7,
         columnNumber: 5
     }, this);
 }
@@ -80741,7 +80749,7 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 function Card({ name, flag, population, region, capital }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
         className: "country-card",
-        href: "/country.html?name=South Georgia",
+        href: `/country.html?name=${name.common}`,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                 src: flag,
